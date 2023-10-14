@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AstronomyAPI Demo</title>
+    <script src="https://widgets.astronomyapi.com/cdn/astronomy-api-widgets.js"></script>
+  </head>
+  <body>
+    <h1>Welcome to AstronomyAPI Demo</h1>
+    <div id="moon-phase"></div>
+    <div id="star-chart"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Reemplaza "yourApplicationId" y "yourApplicationSecret" con tus credenciales válidas.
+        var applicationId = "2533aba0-c413-4d50-90d9-d6451253eb4e";
+        var applicationSecret = "1c6d47c4dd00513d385c7e14d86406eb3d8fd0841b8aad07ef1c15e8c2ad3f95ef060c5a8dba86cd4957c00542cb38512532446fcbe7c0844961932a1e1fca5de85b0bf48f20fd6a942f017ba14e2d99c6ea99bcdc6cc6014e0f01639072cd37685f7bffe635c4485455dd1d8936623d";
+        var authString = btoa(`${applicationId}:${applicationSecret}`);
+
+        var client = new AstronomyAPI({
+          basicToken: authString,
+        });
+
+        // Obtener la fase lunar y mostrarla en el elemento "moon-phase".
+        client.moonPhase().then(function (moonData) {
+          document.getElementById("moon-phase").textContent = moonData.phase;
+        });
+
+        // Obtener el gráfico de estrellas y mostrarlo en el elemento "star-chart".
+        client.starChart().then(function (starChartData) {
+          document.getElementById("star-chart").innerHTML = starChartData.chart;
+        });
+      });
+    </script>
+  </body>
+</html>
